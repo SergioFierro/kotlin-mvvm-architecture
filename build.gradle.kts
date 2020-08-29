@@ -7,7 +7,7 @@ buildscript {
   dependencies {
     classpath(Config.Dependencies.androidTools)
     classpath(kotlin(Config.Plugins.kotlin, Config.Versions.kotlin))
-
+    classpath(Config.Plugins.daggerHiltGradle)
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
   }
