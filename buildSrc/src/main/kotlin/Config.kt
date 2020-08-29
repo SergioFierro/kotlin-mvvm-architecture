@@ -17,6 +17,8 @@ object Config {
     const val androidApplication = "com.android.application"
     const val kotlinAndroid = "kotlin-android"
     const val kotlinAndroidExtensions = "kotlin-android-extensions"
+    const val spotless = "plugins.spotless"
+    const val ktlint = "plugins.ktlint"
   }
 
   object Versions {

@@ -18,4 +18,6 @@ allprojects {
     google()
     jcenter()
   }
+  plugins.apply(Config.Plugins.spotless)
+  plugins.apply(Config.Plugins.ktlint)
 }
