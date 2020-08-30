@@ -1,33 +1,23 @@
 package com.sergiofierro.meli.repository
 
+import com.sergiofierro.meli.model.Product
 import com.sergiofierro.meli.network.ProductsClient
-import com.skydoves.sandwich.message
-import com.skydoves.sandwich.onError
-import com.skydoves.sandwich.onException
-import com.skydoves.sandwich.suspendOnSuccess
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 class ProductsRepository @Inject constructor(private val productsClient: ProductsClient) {
+
   suspend fun fetchProducts(
-    query: String,
-    onSuccess: () -> Unit,
-    onError: (String) -> Unit
-  ) = flow {
-    val response = productsClient.fetchProducts(query)
-    response.suspendOnSuccess {
-      data?.let {
-        emit(it.results)
-      } ?: emit(emptyList())
-      onSuccess()
-    }
-      .onError {
-        onError(message())
-      }
-      .onException {
-        onError(message())
-      }
-  }.flowOn(Dispatchers.IO)
+    query: String
+  ): Flow<List<Product>> {
+    return flow {
+      val response = productsClient.fetchProducts(query)
+      emit(response.results)
+    }.flowOn(Dispatchers.IO)
+  }
 }

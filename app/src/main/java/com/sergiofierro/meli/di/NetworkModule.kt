@@ -2,7 +2,6 @@ package com.sergiofierro.meli.di
 
 import com.sergiofierro.meli.BuildConfig
 import com.sergiofierro.meli.network.api.ProductsService
-import com.skydoves.sandwich.coroutines.CoroutinesResponseCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,9 +30,7 @@ object NetworkModule {
   @Provides
   @Singleton
   fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
-    Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).client(okHttpClient).addConverterFactory(MoshiConverterFactory.create()).addCallAdapterFactory(
-      CoroutinesResponseCallAdapterFactory()
-    ).build()
+    Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).client(okHttpClient).addConverterFactory(MoshiConverterFactory.create()).build()
 
   @Provides
   @Singleton

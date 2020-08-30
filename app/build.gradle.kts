@@ -4,6 +4,7 @@ plugins {
   kotlin(Config.Plugins.kotlinAndroidExtensions)
   kotlin(Config.Plugins.kapt)
   id(Config.Plugins.daggerHiltAndroid)
+  id("kotlin-android")
 }
 
 android {
@@ -65,6 +66,8 @@ dependencies {
   implementation(Config.Dependencies.appcompat)
   implementation(Config.Dependencies.constraintLayout)
   implementation(Config.Dependencies.recyclerview)
+  implementation(Config.Dependencies.material)
+  implementation(Config.Dependencies.glide)
 
   // architecture components
   implementation(Config.Dependencies.lifecycleExtensions)
@@ -78,7 +81,6 @@ dependencies {
   implementation(Config.Dependencies.moshi)
   implementation(Config.Dependencies.moshiKotlin)
   implementation(Config.Dependencies.moshiCodegen)
-  implementation(Config.Dependencies.sandwich)
   implementation(Config.Dependencies.okHttpLogging)
 
   // dagger
@@ -99,4 +101,6 @@ dependencies {
   testImplementation(Config.Dependencies.coreTesting)
   testImplementation(Config.Dependencies.core)
   testImplementation(Config.Dependencies.turbine)
+  testImplementation(Config.Dependencies.coroutinesAndroidTest)
+  testImplementation(Config.Dependencies.coroutinesTest)
 }

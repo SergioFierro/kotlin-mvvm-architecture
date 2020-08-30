@@ -2,16 +2,12 @@ package com.sergiofierro.meli.network
 
 import com.nhaarman.mockitokotlin2.mock
 import com.sergiofierro.meli.network.api.ProductsService
-import com.skydoves.sandwich.ApiResponse
+import com.squareup.moshi.JsonDataException
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 
-@RunWith(RobolectricTestRunner::class)
 class ProductsApiTest : BaseApiTest<ProductsService>() {
 
   private lateinit var service: ProductsService
@@ -26,18 +22,17 @@ class ProductsApiTest : BaseApiTest<ProductsService>() {
   fun `Fetch products with valid response should succeed`() = runBlocking {
     enqueueMockResponse("product_search_response.json")
     val response = service.fetchProducts(query = "query")
-    val responseBody = requireNotNull((response as ApiResponse.Success).data)
     mockWebServer.takeRequest()
 
     client.fetchProducts("query")
-    assertTrue(responseBody.results.isNotEmpty())
+    assertTrue(response.results.isNotEmpty())
   }
 
-  @Test
-  fun `Fetch products with invalid response should fail`() = runBlocking {
-    enqueueMockResponse("invalid_response.json")
-    val response = service.fetchProducts(query = "query")
-    assertTrue(response is ApiResponse.Failure.Exception)
-    assertNotNull((response as ApiResponse.Failure.Exception).message)
+  @Test(expected = JsonDataException::class)
+  fun `Fetch products with invalid response should fail`() {
+    runBlocking {
+      enqueueMockResponse("invalid_response.json")
+      service.fetchProducts(query = "query")
+    }
   }
 }

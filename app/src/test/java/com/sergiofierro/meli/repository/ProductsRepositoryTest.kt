@@ -1,20 +1,18 @@
 package com.sergiofierro.meli.repository
 
 import app.cash.turbine.test
-import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.never
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.sergiofierro.meli.model.ProductsResponse
 import com.sergiofierro.meli.network.ProductsClient
-import com.skydoves.sandwich.ApiResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import retrofit2.Response
+import java.io.IOException
 import kotlin.time.ExperimentalTime
 
 @ExperimentalTime
@@ -27,34 +25,30 @@ class ProductsRepositoryTest {
   @Test
   fun `Fetch products with success response should contain expected items`() {
     runBlocking {
-      val onSuccess: () -> Unit = mock()
-      val onError: (String) -> Unit = mock()
       val expectedResponse = ProductsResponse(listOf(mock()))
       val query = "MeLi"
-      whenever(productsClient.fetchProducts(query)).thenReturn(ApiResponse.of { Response.success(expectedResponse) })
-      productsRepository.fetchProducts(query, onSuccess, onError).test {
+      whenever(productsClient.fetchProducts(query)).thenReturn(expectedResponse)
+      productsRepository.fetchProducts(query).test {
         assertEquals(expectedResponse.results.size, expectItem().size)
         expectComplete()
       }
       verify(productsClient).fetchProducts(query)
-      verify(onSuccess).invoke()
-      verify(onError, never()).invoke(any())
     }
   }
 
   @InternalCoroutinesApi
   @Test
-  fun `Fetch products with error should call onError`() {
-    val onSuccess: () -> Unit = mock()
-    val onError: (String) -> Unit = mock()
+  fun `Fetch products with exception should fail`() {
     runBlocking {
+      val expectedError = IOException()
       val query = "MeLi"
-      whenever(productsClient.fetchProducts(query)).thenReturn(ApiResponse.error(Throwable()))
-      productsRepository.fetchProducts(query, onSuccess, onError).collect(mock())
-
+      given(productsClient.fetchProducts(query)).willAnswer {
+        throw expectedError
+      }
+      productsRepository.fetchProducts(query).test {
+        assertEquals(expectedError::class.java, expectError()::class.java)
+      }
       verify(productsClient).fetchProducts(query)
-      verify(onError).invoke(any())
-      verify(onSuccess, never()).invoke()
     }
   }
 }

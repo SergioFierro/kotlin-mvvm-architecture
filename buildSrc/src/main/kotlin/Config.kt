@@ -6,6 +6,8 @@ object Config {
     const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     const val recyclerview = "androidx.recyclerview:recyclerview:${Versions.recyclerview}"
+    const val material = "com.google.android.material:material:${Versions.material}"
+    const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val junit = "junit:junit:${Versions.junit}"
 
     // architecture components
@@ -22,7 +24,6 @@ object Config {
     const val moshiCodegen = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshi}"
     const val okHttpLogging = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}"
     const val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.okHttp}"
-    const val sandwich = "com.github.skydoves:sandwich:${Versions.sandwich}"
 
     // dagger
     const val daggerHiltAndroid = "com.google.dagger:hilt-android:${Versions.daggerHiltAndroid}"
@@ -39,6 +40,8 @@ object Config {
     const val coreTesting = "androidx.arch.core:core-testing:${Versions.coreTesting}"
     const val core = "androidx.test:core:${Versions.core}"
     const val turbine = "app.cash.turbine:turbine:${Versions.turbine}"
+    const val coroutinesAndroidTest = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutinesTest}"
+    const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutinesTest}"
   }
 
   object Plugins {
@@ -68,7 +71,6 @@ object Config {
     const val retrofit = "2.9.0"
     const val moshi = "1.9.2"
     const val okHttp = "4.7.2"
-    const val sandwich = "1.0.4"
     const val daggerHiltAndroid = "2.28.3-alpha"
     const val daggerHilt = "1.0.0-alpha02"
     const val lifecycle = "2.2.0"
@@ -79,5 +81,8 @@ object Config {
     const val coreTesting = "2.1.0"
     const val core = "1.3.0"
     const val turbine = "0.2.0"
+    const val material = "1.2.0"
+    const val coroutinesTest = "1.3.7"
+    const val glide = "4.11.0"
   }
 }
