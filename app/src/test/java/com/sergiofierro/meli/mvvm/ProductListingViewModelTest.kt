@@ -8,6 +8,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import com.sergiofierro.meli.model.Product
 import com.sergiofierro.meli.mvvm.product.ProductListingViewModel
 import com.sergiofierro.meli.repository.ProductsRepository
+import java.io.IOException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
@@ -19,7 +20,6 @@ import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.io.IOException
 
 @ExperimentalCoroutinesApi
 class ProductListingViewModelTest {
@@ -47,7 +47,7 @@ class ProductListingViewModelTest {
     }
     val query = "MeLi"
     whenever(repository.fetchProducts(eq(query))).thenReturn(flow)
-    viewModel.fetchProducts(query)
+    viewModel.searchProducts(query)
     delay(500L)
     verify(observer).onChanged(expectedProducts)
     assertFalse(viewModel.isLoading.get())
@@ -66,7 +66,7 @@ class ProductListingViewModelTest {
         emit(expectedThrowable)
       }
       val query = "MeLi"
-      viewModel.fetchProducts(query)
+      viewModel.searchProducts(query)
       assertFalse(viewModel.isLoading.get())
       assertNotNull(viewModel.alertLiveData.value)
       assertEquals(expectedErrorMessage, viewModel.alertLiveData.value)

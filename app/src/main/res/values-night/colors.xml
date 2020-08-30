@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="colorPrimary">#212121</color>
+  <color name="colorPrimaryDark">#000000</color>
+  <color name="colorAccent">#1e88e5</color>
+  <color name="menu_item">@android:color/white</color>
+  <color name="darker_layout_background">#424242</color>
+</resources>

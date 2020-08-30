@@ -18,7 +18,7 @@ android {
     versionCode = 1
     versionName = "1.0"
 
-    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner = "com.sergiofierro.meli.MeliAppTestRunner"
     buildConfigField("String", "BASE_URL", "\"https://api.mercadolibre.com/\"")
   }
 
@@ -103,4 +103,9 @@ dependencies {
   testImplementation(Config.Dependencies.turbine)
   testImplementation(Config.Dependencies.coroutinesAndroidTest)
   testImplementation(Config.Dependencies.coroutinesTest)
+  androidTestImplementation(Config.Dependencies.testCore)
+  androidTestImplementation(Config.Dependencies.truth)
+  androidTestImplementation(Config.Dependencies.junitExt)
+  androidTestImplementation(Config.Dependencies.testRunner)
+  androidTestImplementation(Config.Dependencies.espresso)
 }

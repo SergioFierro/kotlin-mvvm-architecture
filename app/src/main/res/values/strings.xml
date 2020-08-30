@@ -1,3 +1,7 @@
 <resources>
   <string name="app_name">MeLi</string>
+  <string name="search_product">Search product</string>
+  <string name="empty">Unfortunately, no products associated with your search were found</string>
+  <string name="start_searching">Start searching for products</string>
+  <string name="attribute"><b>%1$s: </b>%2$s</string>
 </resources>

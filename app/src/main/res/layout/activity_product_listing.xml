@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <data>
+
+    <variable
+      name="vm"
+      type="com.sergiofierro.meli.mvvm.product.ProductListingViewModel" />
+
+    <variable
+      name="adapter"
+      type="com.sergiofierro.meli.mvvm.product.ProductAdapter" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+      android:id="@+id/appBarLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginTop="@dimen/thin_margin"
+          android:layout_marginEnd="@dimen/activity_margin"
+          android:layout_marginBottom="@dimen/thin_margin"
+          android:animateLayoutChanges="true"
+          android:background="@drawable/rounded_background">
+<!--          android:onClick="@{() -> vm.search()}"-->
+          <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/startSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_margin"
+            app:hide="@{vm.loading}"
+            android:onClick="@{() -> vm.search(searchProductEditText)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_search" />
+
+          <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:hide="@{!vm.loading}"
+            android:padding="@dimen/thin_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+          <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/searchActions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="left"
+            app:constraint_referenced_ids="startSearch, progressBar" />
+
+          <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/searchProductEditText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/condensed_margin"
+            android:layout_marginEnd="@dimen/condensed_margin"
+            android:background="@drawable/rounded_background"
+            android:hint="@string/search_product"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
+            android:text="@{vm.productFetchingLiveData}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/searchActions"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onEditorActionListener="@{vm.editorActionListener}" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+      </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/recyclerView"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:clipToPadding="false"
+      app:adapter="@{adapter}"
+      app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+      app:productList="@{vm.productListLiveData}"
+      app:snackbar="@{vm.alertLiveData}"
+      app:spanCount="2" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/appCompatTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/condensed_margin"
+      android:gravity="center"
+      android:padding="@dimen/condensed_margin"
+      android:text="@string/empty"
+      android:textSize="@dimen/extended_text_size"
+      app:hide="@{!vm.productListLiveData.isEmpty}"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:hide="@{!vm.productListLiveData.isEmpty}"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/appCompatTextView"
+      app:srcCompat="@drawable/pepe" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
