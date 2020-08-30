@@ -98,4 +98,5 @@ dependencies {
   testImplementation(Config.Dependencies.robolectric)
   testImplementation(Config.Dependencies.coreTesting)
   testImplementation(Config.Dependencies.core)
+  testImplementation(Config.Dependencies.turbine)
 }

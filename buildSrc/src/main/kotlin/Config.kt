@@ -38,6 +38,7 @@ object Config {
     const val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
     const val coreTesting = "androidx.arch.core:core-testing:${Versions.coreTesting}"
     const val core = "androidx.test:core:${Versions.core}"
+    const val turbine = "app.cash.turbine:turbine:${Versions.turbine}"
   }
 
   object Plugins {
@@ -77,5 +78,6 @@ object Config {
     const val mockitoInline = "3.3.3"
     const val coreTesting = "2.1.0"
     const val core = "1.3.0"
+    const val turbine = "0.2.0"
   }
 }
